@@ -15,3 +15,8 @@ export interface Idea {
    */
   content: string;
 }
+
+export interface errorType {
+  code: number,
+  text: string
+}

@@ -8,8 +8,9 @@ export const createIdea = (idea: Omit<Idea, 'submittedAt'>) => {
     submittedAt: new Date(),
   };
 
-  if (!validateIdea(withSubmittedDate)) {
-    throw new Error('Invalid idea');
+  const validationResult = validateIdea(withSubmittedDate)
+  if (validationResult) {
+    throw validationResult
   }
 
   addIdea(withSubmittedDate);

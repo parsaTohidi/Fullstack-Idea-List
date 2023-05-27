@@ -16,13 +16,15 @@ app.get('/ideas', (req, res) => {
 
 app.post('/ideas', (req, res) => {
   try {
-    createIdea(req.body);
-    res.status(200);
-  } catch (e) {
-    res.status(500);
+    createIdea(req.body)
+    res.status(200).send(readIdeas());
+  } catch (e: any) {
+    console.log(e);
+    
+    res.status(e.code).send({
+      text: e.text
+    })
   }
-
-  res.json(readIdeas());
 });
 
 app.get('/stats', (req, res) => {
