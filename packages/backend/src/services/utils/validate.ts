@@ -1,10 +1,8 @@
-import { Idea, errorType } from './idea';
-
 /**
  * Validates that a submitted idea matches our requiremetns
  * @param idea
  */
-export const validateIdea = ({ content,  submittedBy }: Idea): errorType | undefined => {
+export const validateIdea = ({ content,  submittedBy }: Omit<Idea, 'submittedAt'>): errorType | undefined => {
 
   if (!submittedBy) {
     return {

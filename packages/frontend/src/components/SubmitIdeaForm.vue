@@ -28,11 +28,11 @@ defineExpose({
   <form v-on:submit.prevent="emit('submitIdea', formData)" class="submit-idea-form">
     <div class="field">
       <label for="submittedBy" class="label">Who are you?</label>
-      <input type="text" name="submittedBy" id="submittedBy" v-model="formData.submittedBy" />
+      <input type="text" name="submittedBy" id="submittedBy" v-model.trim="formData.submittedBy" />
     </div>
     <div class="field">
       <label for="content" class="label">Your idea</label>
-      <textarea type="text" name="content" id="content" v-model="formData.content"></textarea>
+      <textarea type="text" name="content" id="content" v-model.trim="formData.content"></textarea>
     </div>
     <input type="submit" value="Submit" />
   </form>
