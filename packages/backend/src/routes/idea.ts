@@ -4,7 +4,14 @@ import { createIdea, readIdeas } from '../services/ideas';
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.json(readIdeas());
+    try {
+        const ideas = readIdeas()
+        res.status(200).json(ideas);
+    } catch (e) {
+        res.status(500).send({
+            error: e
+        })
+    }
 });
 
 router.post('/', (req, res) => {
@@ -13,13 +20,18 @@ router.post('/', (req, res) => {
             submittedBy: req.body.submittedBy.trim(),
             content: req.body.content.trim()
         })
-        res.status(200).send(readIdeas());
+        res.status(201).send(readIdeas());
     } catch (e: any) {
-        console.log(e);
-
-        res.status(e.code).send({
-            text: e.text
-        })
+        if (e.code) {
+            res.status(e.code).send({
+                error: e.text
+            })
+        }
+        else {
+            res.status(500).send({
+                error: e
+            })
+        }
     }
 });
 
