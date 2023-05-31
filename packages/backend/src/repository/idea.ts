@@ -1,5 +1,3 @@
-import { Idea } from './idea';
-
 const ideaCache: Idea[] = [];
 
 /**

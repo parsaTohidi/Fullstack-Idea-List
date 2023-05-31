@@ -1,4 +1,3 @@
-import type { Idea } from '../ideas/idea';
 import { readIdeas } from '../ideas';
 
 const getUniqueParticipants = (ideas: readonly Idea[]) => ideas.reduce((uniqueParticipants, idea) => {

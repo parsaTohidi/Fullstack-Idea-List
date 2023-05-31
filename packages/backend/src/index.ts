@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { createIdea, readIdeas } from './ideas';
-import { readStats } from './stats';
+import ideaRoutes from './routes/idea'
+import statsRoutes from './routes/stats'
+import tooBusy from 'toobusy-js'
 
 const app = express();
 const port = 3000;
@@ -10,24 +11,20 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/ideas', (req, res) => {
-  res.json(readIdeas());
-});
-
-app.post('/ideas', (req, res) => {
-  try {
-    createIdea(req.body);
-    res.status(200);
-  } catch (e) {
-    res.status(500);
+app.use(function (req, res, next) {
+  if (tooBusy()) {
+    res.status(503).send("The server is busy right now, Try again later.")
+  } else {
+    next()
   }
+})
 
-  res.json(readIdeas());
-});
+app.use('/ideas', ideaRoutes)
+app.use('/stats', statsRoutes)
 
-app.get('/stats', (req, res) => {
-  res.json(readStats());
-});
+app.get('/healthcheck', (req, res) => {
+  res.send({ status: 'OK' })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

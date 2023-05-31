@@ -1,4 +1,4 @@
-import { validateIdea } from './validate';
+import { validateIdea } from '../validate';
 
 describe('Idea validation', () => {
   it("should reject all of Peter's ideas", () => {

@@ -1,7 +1,7 @@
 /**
  * An idea submitted to the app
  */
-export interface Idea {
+interface Idea {
   /**
    * Who submitted the idea
    */
@@ -14,4 +14,9 @@ export interface Idea {
    * The idea that was submitted
    */
   content: string;
+}
+
+interface errorType {
+  code: number,
+  text: string
 }
